@@ -61,8 +61,6 @@ def main():
 
                     break
 
-        #print "iv     : ", iv.encode('hex')
-
         # blk番目の平文を得る
         m_ = "";
         for i in range(blksz):
@@ -71,6 +69,13 @@ def main():
         m = m_ + m
 
     print "plain  : ", m.encode('hex')
+
+    # 最初のivを求める
+    iv_ = "";
+    for i in range(blksz):
+        iv_ += chr(0x10 ^ ord(iv[i]) ^ ord(m[i]))
+    
+    print "iv     : ", iv_.encode('hex')
 
 if __name__ == "__main__":
     main()
