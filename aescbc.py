@@ -27,34 +27,34 @@ def decrypt(c, key, iv):
 def check_padding(c, iv):
     return isvalidpadding(decrypt(c, aes_key, iv))
 
-# AES-CBC$B$GJ?J8$r0E9f2=$7$FI|9f$7$F85$KLa$9(B
+# AES-CBCで平文を暗号化して復号して元に戻す
 def main():
-    # $BJ?J8(B
+    # 平文
     plain = sys.argv[1]
     print "plain  : ", plain.encode('hex')
 
-    # padding$BIU$-J?J8(B
+    # padding付き平文
     print "padding: ", padding(plain).encode('hex')
 
-    # $B0E9f80(B
+    # 暗号鍵
     print "key    : ", aes_key.encode('hex')
 
     # iv
     iv = "IV for CBC mode."
     print "iv     : ", iv.encode('hex')
 
-    # $B0E9f2=(B
+    # 暗号化
     c = encrypt(plain, aes_key, iv)
     print "encrypt: ", iv.encode('hex') + c.encode('hex')
 
-    # $BI|9f(B
+    # 復号
     m = decrypt(c, aes_key, iv)
     print "decrypt: ", m.encode('hex')
 
-    # padding$B%A%'%C%/(B
+    # paddingチェック
     print "valid  : ", isvalidpadding(m)
 
-    # $BJ?J8(B
+    # 平文
     print "plain  : ", unpadding(m).encode('hex')
 
 if __name__ == "__main__":
